@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+   <h1> {{ path.name }} </h1>
+   <h2> {{ path.description }} </h2>
+    {% for step in steps %}
+        {% include '_step.html' %}
+    {% endfor %}
+{% endblock %}

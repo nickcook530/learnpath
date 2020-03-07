@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if paths %}
+        <h1> My Paths </h1>
+        <ol>
+           {% for path in paths %}
+               <li><a href="{{ url_for('path', user_id=current_user.id, path_id=path.id) }}">{{ path.name }}</a></li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <h1> No paths yet, time to create one! </h1>
+    {% endif %}
+{% endblock %}

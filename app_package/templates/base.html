@@ -19,7 +19,7 @@
   <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
       <div class="mx-auto order-0">
-          <a class="navbar-brand mx-auto" href="#">LearnPath</a>
+          <a class="navbar-brand mx-auto" href="{{ url_for('home') }}">LearnPath</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
               <span class="navbar-toggler-icon"></span>
           </button>
@@ -28,7 +28,7 @@
           <ul class="navbar-nav ml-auto">
             {% if current_user.is_authenticated %}
               <li class="nav-item">
-                  <a class="nav-link">{{ current_user.email }}</a>
+                  <a class="nav-link disabled">{{ current_user.email }}</a>
               </li>
               <li class="nav-item">
                   <a class="nav-link" href="{{ url_for("logout") }}">Log out</a>
@@ -42,7 +42,7 @@
       </div>
     </nav>
     
-    <div>
+    <div class="float-right">
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         <ul class="flash">
@@ -63,4 +63,5 @@
     
     {% endblock %}
   </body>
+  
 </html>
