@@ -9,7 +9,7 @@ def home():
     paths = []
     if current_user.is_authenticated:
         paths = Path.query.filter_by(user_id=current_user.id).all()
-    return render_template("homescreen.html", paths=paths)
+    return render_template("homescreen.html", paths=paths, current_user=current_user)
 
 @app.route('/<user_id>/paths/<path_id>')
 def path(user_id, path_id):

@@ -1,14 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% if paths %}
-        <h1> My Paths </h1>
-        <ol>
-           {% for path in paths %}
-               <li><a href="{{ url_for('path', user_id=current_user.id, path_id=path.id) }}">{{ path.name }}</a></li>
-            {% endfor %}
-        </ol>
+<div class="container">
+    {% if current_user.is_authenticated %}
+        <div class="row">
+            <div class="col-10 mx-auto text-center">
+                {% if paths %}
+                    <h1> My Paths: </h1>
+                {% else %}
+                    <h1> You don't have any paths yet. Get started by building one! </h1>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 mx-auto">
+                {% if paths %}
+                    <ol>
+                    {% for path in paths %}
+                       <li><a href="{{ url_for('path', user_id=current_user.id, path_id=path.id) }}">{{ path.name }}</a></li>
+                    {% endfor %}
+                    </ol>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10 mx-auto">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#buildPath">
+                  Build Path
+                </button>
+            </div>
+        </div>
     {% else %}
-        <h1> No paths yet, time to create one! </h1>
+        <div class="row">
+            <div class="col-10 mx-auto text-center">
+                <h1> Log in to create your own path! </h1>
+            </div>
+        </div>
     {% endif %}
+</div>
 {% endblock %}
