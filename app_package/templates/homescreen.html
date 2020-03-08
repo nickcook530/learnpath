@@ -8,7 +8,7 @@
                 {% if paths %}
                     <h1> My Paths: </h1>
                 {% else %}
-                    <h1> You don't have any paths yet. Get started by building one! </h1>
+                    <h1> You don't have any paths yet. Get started by creating one! </h1>
                 {% endif %}
             </div>
         </div>
@@ -26,8 +26,8 @@
         <div class="row">
             <div class="col-10 mx-auto">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#buildPath">
-                  Build Path
+                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#newPath">
+                  New Path
                 </button>
             </div>
         </div>
@@ -39,4 +39,8 @@
         </div>
     {% endif %}
 </div>
+
+<!-- Modal -->
+{% include '_newpathmodal.html' %}
+
 {% endblock %}
