@@ -1,9 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-   <h1> {{ path.name }} </h1>
-   <h2> {{ path.description }} </h2>
+
+    <h1> {{ path.name }} </h1>
+    <h2> {{ path.description }} </h2>
     {% for step in steps %}
         {% include '_step.html' %}
     {% endfor %}
+
+    {% if current_user.id == creator_id %}
+        <div class="container">
+            <div class="row">
+                <div class="col-10 mx-auto">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#newStep">
+                    New Step
+                    </button>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Modal -->
+    {% include '_newpathmodal.html' %}
+    {% include '_newstepmodal.html' %}
+    
+
 {% endblock %}
