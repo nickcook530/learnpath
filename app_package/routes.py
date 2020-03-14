@@ -1,4 +1,4 @@
-from app_package import app
+from app_package import app, db
 from app_package.models import Path, Step
 from app_package.forms import PathForm
 from flask import redirect, url_for, flash, render_template
@@ -9,7 +9,11 @@ from flask_login import login_required, logout_user, current_user
 def home():
     form = PathForm()
     if form.validate_on_submit():
+        new_path = Path(name=form.name.data, description=form.description.data, creator=current_user)
+        db.session.add(new_path)
+        db.session.commit()
         flash('SUCCESS')
+        return redirect(url_for('path', user_id=current_user.id, path_id=new_path.id))
     paths = []
     if current_user.is_authenticated:
         paths = Path.query.filter_by(user_id=current_user.id).all()
