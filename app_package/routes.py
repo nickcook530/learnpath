@@ -7,9 +7,9 @@ from flask_login import login_required, logout_user, current_user
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    form = PathForm()
-    if form.validate_on_submit():
-        new_path = Path(name=form.name.data, description=form.description.data, creator=current_user)
+    path_form = PathForm()
+    if path_form.validate_on_submit():
+        new_path = Path(name=path_form.name.data, description=path_form.description.data, creator=current_user)
         db.session.add(new_path)
         db.session.commit()
         flash('SUCCESS')
@@ -17,14 +17,14 @@ def home():
     paths = []
     if current_user.is_authenticated:
         paths = Path.query.filter_by(user_id=current_user.id).all()
-    return render_template("homescreen.html", paths=paths, current_user=current_user, form=form)
+    return render_template("homescreen.html", paths=paths, current_user=current_user, path_form=path_form)
 
 @app.route('/<user_id>/paths/<path_id>')
 def path(user_id, path_id):
-    form = PathForm() #consider removing this?
+    path_form = PathForm() #consider removing this?
     path = Path.query.filter_by(user_id=user_id, id=path_id).first_or_404()
     steps = path.steps.all()
-    return render_template("path.html", path=path, steps=steps, form=form)
+    return render_template("path.html", path=path, steps=steps, path_form=path_form)
     
 @app.route("/logout")
 @login_required

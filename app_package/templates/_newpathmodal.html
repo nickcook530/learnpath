@@ -9,12 +9,12 @@
           </div>
           <div class="modal-body">
             <form method="post">
-                {{ form.hidden_tag() }}
-                {{ render_field(form.name) }}
-                {{ render_field(form.description) }}
+                {{ path_form.hidden_tag() }}
+                {{ render_field(path_form.name) }}
+                {{ render_field(path_form.description) }}
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                {{ render_field(form.submit, class="btn btn-primary") }}
+                {{ render_field(path_form.submit, class="btn btn-primary") }}
               </div>
             </form>
           </div>
