@@ -1,11 +1,11 @@
-    <table>
-        <tr valign="top">
-            <td>{{ step.name }}</td>
-        </tr>
-        <tr valign="top">
-            <td>{{ step.description }}</td>
-        </tr>
-        <tr valign="top">
-            <td>{{ step.link }}</td>
-        </tr>
-    </table>
+    <div class="row">
+        <div class="col-sm-6 mx-auto">
+        <div class="card step-card">
+            <div class="card-body">
+            <h5 class="card-title">{{ step.name }}</h5>
+            <p class="card-text">{{ step.description }}</p>
+            <a href="//{{ step.link }}"" class="btn btn-primary">Go to Link</a>
+            </div>
+        </div>
+        </div>
+    </div>
