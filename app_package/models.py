@@ -44,6 +44,7 @@ class Step(db.Model):
     name = db.Column(db.String(120), unique=False)
     description = db.Column(db.String(400), unique=False)
     link = db.Column(db.String(2048), unique=False)
+    step_order = db.Column(db.Integer, index=True, unique=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     path_id = db.Column(db.Integer, db.ForeignKey('path.id'))

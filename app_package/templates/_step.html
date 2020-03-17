@@ -1,10 +1,13 @@
     <div class="row">
         <div class="col-sm-6 mx-auto">
         <div class="card step-card">
+            <div class="card-header">
+                Step {{ step.step_order }}
+            </div>
             <div class="card-body">
             <h5 class="card-title">{{ step.name }}</h5>
             <p class="card-text">{{ step.description }}</p>
-            <a href="//{{ step.link }}"" class="btn btn-primary">Go to Link</a>
+            <a href="//{{ step.link }}" target="_blank" class="btn btn-primary">Go to Link</a>
             </div>
         </div>
         </div>
