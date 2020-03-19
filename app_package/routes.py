@@ -26,22 +26,25 @@ def path(user_id, path_id):
     path = Path.query.filter_by(user_id=user_id, id=path_id).first_or_404()
     steps = path.steps.order_by(Step.step_order.asc()).all()
     if step_form.validate_on_submit():
-        if step_form.stepid.data:
-            step = Step.query.filter_by(id=step_form.stepid.data).first()
-            step.name = step_form.name.data
-            step.description = step_form.description.data
-            step.link = step_form.link.data
-            db.session.commit()
+        if path.user_id == current_user.id: #check to make sure user is editing their own path/step
+            if step_form.stepid.data:
+                step = Step.query.filter_by(id=step_form.stepid.data).first()
+                step.name = step_form.name.data
+                step.description = step_form.description.data
+                step.link = step_form.link.data
+                db.session.commit()
+            else:
+                order_num = 1
+                number_of_steps = len(steps)
+                if number_of_steps > 0:
+                    order_num = number_of_steps + 1
+                new_step = Step(name=step_form.name.data, description=step_form.description.data, link=step_form.link.data, 
+                    step_order=order_num, path=path, creator=current_user)
+                db.session.add(new_step)
+                db.session.commit()
+                flash('SUCCESS')
         else:
-            order_num = 1
-            number_of_steps = len(steps)
-            if number_of_steps > 0:
-                order_num = number_of_steps + 1
-            new_step = Step(name=step_form.name.data, description=step_form.description.data, link=step_form.link.data, 
-                step_order=order_num, path=path, creator=current_user)
-            db.session.add(new_step)
-            db.session.commit()
-            flash('SUCCESS')
+            flash('ERROR: You do not own this path/step.')
         return redirect(url_for('path', user_id=current_user.id, path_id=path.id))
     return render_template("path.html", path=path, steps=steps, creator_id=user_id, 
         current_user=current_user, path_form=path_form, step_form=step_form)
