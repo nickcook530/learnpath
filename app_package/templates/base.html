@@ -64,7 +64,7 @@
     {% block scripts %}
     <!-- Optional JavaScript -->
     {{ bootstrap.load_js() }}
-    
+    <script src="{{url_for('.static', filename='myscripts.js')}}"></script> 
     {% endblock %}
     
     {% if path_form %}

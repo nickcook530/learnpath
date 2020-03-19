@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, HiddenField
 from wtforms.validators import InputRequired, Length
 
 class PathForm(FlaskForm):
@@ -8,6 +8,7 @@ class PathForm(FlaskForm):
     submit = SubmitField('Save')
 
 class StepForm(FlaskForm):
+    stepid = HiddenField()
     name = StringField('Name', validators=[InputRequired(), Length(max=120)])
     description = StringField('Description', validators=[InputRequired(), Length(max=400)])
     link = StringField('Link', validators=[Length(max=2048)])
