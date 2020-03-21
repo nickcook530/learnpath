@@ -49,6 +49,21 @@ def path(user_id, path_id):
     return render_template("path.html", path=path, steps=steps, creator_id=user_id, 
         current_user=current_user, path_form=path_form, step_form=step_form)
     
+@app.route("/delete/step/<int:step_id>", methods=['DELETE'])
+@login_required
+def delete_step(step_id):
+    step = Step.query.filter_by(id=step_id).first()
+    if step.user_id == current_user.id:
+        db.session.delete(step)
+        steps_to_order = Step.query.filter(Step.path_id==step.path_id, Step.step_order>step.step_order).all()
+        for s in steps_to_order:
+            s.step_order = s.step_order-1
+        db.session.commit()
+        return ('', 204)
+    else:
+        flash('ERROR: You do not own this path/step.')
+        return ('', 403)
+
 @app.route("/logout")
 @login_required
 def logout():
